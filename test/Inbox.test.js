@@ -5,6 +5,26 @@ const Web3 = require("web3");
 
 const web3 = new Web3(ganache.provider());
 
+beforeEach(() => {
+  //gET A LIST OF ALL ACCOUNTS
+  web3.eth.getAccounts().then((fetchedAccounts) => {
+    console.log(fetchedAccounts);
+  });
+
+  //use one of those accounts to deploy the contract
+});
+
+describe("inbox", () => {
+  it("deploy a contract", () => {});
+});
+
+//MOCHA EXAMPLE
+// let car;
+
+// beforeEach(() => {
+//   car = new Car();
+// });
+
 // class Car {
 //   park() {
 //     return "Stopped";
@@ -17,12 +37,10 @@ const web3 = new Web3(ganache.provider());
 
 // describe("Car", () => {
 //   it("Can Park", () => {
-//     const car = new Car();
 //     assert.equal(car.park(), "Stopped");
 //   });
 
 //   it("Can drive", () => {
-//     const car = new Car();
 //     assert.equal(car.drive(), "Vroom");
 //   });
 // });
