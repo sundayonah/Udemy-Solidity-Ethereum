@@ -5,17 +5,19 @@ const Web3 = require("web3");
 
 const web3 = new Web3(ganache.provider());
 
-beforeEach(() => {
+let accounts;
+
+beforeEach(async () => {
   //gET A LIST OF ALL ACCOUNTS
-  web3.eth.getAccounts().then((fetchedAccounts) => {
-    console.log(fetchedAccounts);
-  });
+  accounts = await web3.eth.getAccounts();
 
   //use one of those accounts to deploy the contract
 });
 
-describe("inbox", () => {
-  it("deploy a contract", () => {});
+describe("Inbox", () => {
+  it("deploy a contract", () => {
+    console.log(accounts);
+  });
 });
 
 //MOCHA EXAMPLE
