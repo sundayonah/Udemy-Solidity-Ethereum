@@ -13,31 +13,38 @@ const path = require("path");
 const fs = require("fs");
 const solc = require("solc");
 
-const inboxPath = path.resolve(__dirname, "contracts", "Inbox.sol");
-const source = fs.readFileSync(inboxPath, "utf8");
+function compileContract() {
+  const inboxPath = path.resolve(__dirname, "contracts", "Inbox.sol");
+  const source = fs.readFileSync(inboxPath, "utf8");
 
-const input = {
-  language: "Solidity",
-  sources: {
-    "Inbox.sol": {
-      content: source,
-    },
-  },
-  settings: {
-    outputSelection: {
-      "*": {
-        "*": ["*"],
+  const input = {
+    language: "Solidity",
+    sources: {
+      "Inbox.sol": {
+        content: source,
       },
     },
-  },
-};
-//const output = JSON.parse(solc.compileStandard(JSON.stringify(input)));
-//const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    settings: {
+      outputSelection: {
+        "*": {
+          "*": ["*"],
+        },
+      },
+    },
+  };
 
-const output = JSON.parse(solc.compile(JSON.stringify(input)));
-const contractBytecode =
-  output.contracts["Inbox.sol"]["Inbox"].evm.bytecode.object;
-const contractAbi = output.contracts["Inbox.sol"]["Inbox"].abi;
+  const output = JSON.parse(solc.compile(JSON.stringify(input)));
+  const contractBytecode =
+    output.contracts["Inbox.sol"]["Inbox"].evm.bytecode.object;
+  const contractAbi = output.contracts["Inbox.sol"]["Inbox"].abi;
 
-console.log("Contract bytecode:", contractBytecode);
-console.log("Contract ABI:", contractAbi);
+  console.log("Contract bytecode:", contractBytecode);
+  console.log("Contract ABI:", contractAbi);
+
+  return {
+    bytecode: contractBytecode,
+    abi: contractAbi,
+  };
+}
+
+module.exports = compileContract;
